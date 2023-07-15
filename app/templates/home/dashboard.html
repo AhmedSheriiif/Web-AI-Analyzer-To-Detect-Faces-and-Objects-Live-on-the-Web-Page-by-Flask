@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block title %} Dashboard {% endblock %}
+
+{% block start %}
+
+
+
+    <h5>Solid Line Chart</h5>
+    <script src="{{ url_for('user_data', filename='assets/js/bundle.js') }}"></script>
+    {% include "dash_components/solid_line_chart.html" %}
+
+    <hr>
+    <hr>
+
+    <h5>Data Table with Export</h5>
+    {% include "dash_components/data_table.html" %}
+
+    <hr>
+    <hr>
+
+    <h5>Score Statistics</h5>
+    {% include "dash_components/score_statistics.html" %}
+
+
+
+    <script src="{{ url_for('user_data', filename='assets/js/bundle.js') }}"></script>
+    <script src="{{ url_for('user_data', filename='assets/js/scripts.js') }}"></script>
+    <script src="{{ url_for('user_data', filename='assets/js/libs/datatable-btns.js') }}"></script>
+
+    <script>
+        !function (NioApp, $) {
+            "use strict";
+
+            var salesOverview = {
+                labels: {{ solid_line.labels|safe }},
+                dataUnit: "{{ solid_line.data_unit }}",
+                lineTension: 0.1,
+                datasets: [{
+                    label: "{{ solid_line.title }}",
+                    color: "#798bff",
+                    background: NioApp.hexRGB('#798bff', .3),
+                    data: {{ solid_line.data|safe }}
+                }]
+            };
+
+            function lineSalesOverview(selector, set_data) {
+                var $selector = selector ? $(selector) : $('.sales-overview-chart');
+                $selector.each(function () {
+                    var $self = $(this),
+                        _self_id = $self.attr('id'),
+                        _get_data = typeof set_data === 'undefined' ? eval(_self_id) : set_data;
+
+                    var selectCanvas = document.getElementById(_self_id).getContext("2d");
+                    var chart_data = [];
+
+                    for (var i = 0; i < _get_data.datasets.length; i++) {
+                        chart_data.push({
+                            label: _get_data.datasets[i].label,
+                            tension: _get_data.lineTension,
+                            backgroundColor: _get_data.datasets[i].background,
+                            borderWidth: 2,
+                            borderColor: _get_data.datasets[i].color,
+                            pointBorderColor: "transparent",
+                            pointBackgroundColor: "transparent",
+                            pointHoverBackgroundColor: "#fff",
+                            pointHoverBorderColor: _get_data.datasets[i].color,
+                            pointBorderWidth: 2,
+                            pointHoverRadius: 3,
+                            pointHoverBorderWidth: 2,
+                            pointRadius: 3,
+                            pointHitRadius: 3,
+                            data: _get_data.datasets[i].data
+                        });
+                    }
+
+                    var chart = new Chart(selectCanvas, {
+                        type: 'line',
+                        data: {
+                            labels: _get_data.labels,
+                            datasets: chart_data
+                        },
+                        options: {
+                            legend: {
+                                display: _get_data.legend ? _get_data.legend : false,
+                                labels: {
+                                    boxWidth: 30,
+                                    padding: 20,
+                                    fontColor: '#6783b8'
+                                }
+                            },
+                            maintainAspectRatio: false,
+                            tooltips: {
+                                enabled: true,
+                                rtl: NioApp.State.isRTL,
+                                callbacks: {
+                                    title: function title(tooltipItem, data) {
+                                        return data['labels'][tooltipItem[0]['index']];
+                                    },
+                                    label: function label(tooltipItem, data) {
+                                        return data.datasets[tooltipItem.datasetIndex]['data'][tooltipItem['index']] + ' ' + _get_data.dataUnit;
+                                    }
+                                },
+                                backgroundColor: '#eff6ff',
+                                titleFontSize: 13,
+                                titleFontColor: '#6783b8',
+                                titleMarginBottom: 6,
+                                bodyFontColor: '#9eaecf',
+                                bodyFontSize: 12,
+                                bodySpacing: 4,
+                                yPadding: 10,
+                                xPadding: 10,
+                                footerMarginTop: 0,
+                                displayColors: false
+                            },
+                            scales: {
+                                yAxes: [{
+                                    display: true,
+                                    stacked: _get_data.stacked ? _get_data.stacked : false,
+                                    position: NioApp.State.isRTL ? "right" : "left",
+                                    ticks: {
+                                        beginAtZero: true,
+                                        fontSize: 11,
+                                        fontColor: '#9eaecf',
+                                        padding: 10,
+                                        callback: function callback(value, index, values) {
+                                            return "{{ solid_line.unit_label }}" + value;
+                                        },
+                                        min: {{ solid_line.min_unit }},
+                                        stepSize: 3000
+                                    },
+                                    gridLines: {
+                                        color: NioApp.hexRGB("#526484", .2),
+                                        tickMarkLength: 0,
+                                        zeroLineColor: NioApp.hexRGB("#526484", .2)
+                                    }
+                                }],
+                                xAxes: [{
+                                    display: true,
+                                    stacked: _get_data.stacked ? _get_data.stacked : false,
+                                    ticks: {
+                                        fontSize: 9,
+                                        fontColor: '#9eaecf',
+                                        source: 'auto',
+                                        padding: 10,
+                                        reverse: NioApp.State.isRTL
+                                    },
+                                    gridLines: {
+                                        color: "transparent",
+                                        tickMarkLength: 0,
+                                        zeroLineColor: 'transparent'
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                });
+            } // init chart
+
+
+            NioApp.coms.docReady.push(function () {
+                lineSalesOverview();
+            });
+
+        }
+        (NioApp, jQuery);
+
+    </script>
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/css/dashlite.css') }}">
+    <link id="skin-default" rel="stylesheet" href="{{ url_for('static' , filename='assets/css/theme.css') }}">
+    <script src="https://kit.fontawesome.com/a1aef19155.js" crossorigin="anonymous"></script>
+
+
+    <title>Register</title>
+</head>
+
+<body>
+<!-- start my content -->
+<div class="container">
+    <div class="container-fluid mt-5">
+        <h5 class="card-title">Customer Register</h5>
+        <form action="{{ url_for('auth.register') }}" method="POST" id="myform">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+            <!-- FULLNAME -->
+            <div class="form-group">
+                <label class="form-label" for="fullname">Full Name</label>
+                <div class="form-control-wrap">
+                    <input type="text" class="form-control" id="fullname" name="fullname" aria-label="Fullname"
+                           aria-describedby="basic-addon1">
+                </div>
+            </div>
+
+            <!-- EMAIL -->
+            <div class="form-group">
+                <label class="form-label" for="email">Email address</label>
+                <div class="form-control-wrap">
+                    <input type="email" class="form-control" id="email" name="email">
+                    <p class="lead">{{ email_exists }}</p>
+                </div>
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <div class="form-control-wrap">
+                    <input type="password" class="form-control" id="password1" name="password1">
+                </div>
+            </div>
+
+            <!-- CONFIRM PASSWORD -->
+            <div class="form-group">
+                <label class="form-label" for="password">Confirm Password</label>
+                <div class="form-control-wrap">
+                    <input type="password" class="form-control" id="password2" name="password2">
+                    <p class="lead">{{ password_not_match }}</p>
+
+                </div>
+            </div>
+
+            <!-- PHONE -->
+            <div class="form-group">
+                <label class="form-label" for="phone-no">Phone No</label>
+                <div class="form-control-wrap">
+                    <input type="text" class="form-control" id="phone" name="phone">
+                </div>
+            </div>
+
+
+            <!-- COMMUNICATION -->
+            <div class="form-group">
+                <label class="form-label">Communication</label>
+                <ul class="custom-control-group g-3 align-center">
+                    <li>
+                        <div class="custom-control custom-control-sm custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="comm_email" name="comm_email"
+                                   value="comm_email">
+                            <label class="custom-control-label" for="comm_email">Email</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="custom-control custom-control-sm custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="comm_sms" name="comm_sms"
+                                   value="comm_sms">
+                            <label class="custom-control-label" for="comm_sms">SMS</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="custom-control custom-control-sm custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="comm_phone" name="comm_phone"
+                                   value="comm_phone">
+                            <label class="custom-control-label" for="comm_phone">Phone</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <!-- REGISTER BUTTON -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-lg btn-primary" id="submitbtn">Register</button>
+            </div>
+            <p id="submiterror"></p>
+        </form>
+
+    </div>
+
+    <div class="nk-block-des"><p>Already have an account? <a href="{{ url_for('auth.login') }}">login</a></p></div>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>
+
+</body>
+</html>
+
+
+
+

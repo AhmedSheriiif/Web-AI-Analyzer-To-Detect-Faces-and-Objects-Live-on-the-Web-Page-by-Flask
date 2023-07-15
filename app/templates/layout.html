@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- required meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}
+        {%endblock%}</title>
+    <!-- bootstrap , fontawsome , custom css -->
+  
+    {%block style%}
+    {%endblock%}
+    <link rel="stylesheet" href="{{url_for('static' , filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static' , filename='css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static' , filename='css/home.css')}}">
+    <script src="https://kit.fontawesome.com/a1aef19155.js" crossorigin="anonymous"></script>
+ 
+
+
+</head>
+<body>  
+    <!-- start of navbar -->
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <img src="{{url_for('static' , filename='images/logo.jpeg')}}" alt="Navbar Logo" class="logo border rounded " />
+
+        <a class="navbar-brand" href="#">AI Predict</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="">Home <span class="sr-only"></span></a>
+            </li>
+
+          </ul> -->
+          <!-- Navbar Right Side -->
+          <ul class="navbar-nav">
+                <li class="nav-item element">
+                    <a class="nav-link" href="{{ url_for('home.home_page') }}">Home</a>
+                    <!-- " -->
+                </li>
+   
+              <li class="nav-item element">
+                <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                <!-- {{ url_for('auth.login') }}" -->
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
+                <!-- {{ url_for('home.home_page') }} -->
+              </li>
+      
+              <li class="nav-item ">
+                <a class="nav-link" href="#">Profile</a>
+              </li>
+              <li class="nav-item element1">
+                <a class="nav-link" href="">logout</a>
+                <!-- {{ url_for('home.home_page') }} -->
+              </li>
+           
+          </ul>
+        </div>
+      </nav>
+
+      <!-- end of navbar -->
+    {% block content %}
+    {% endblock %}
+
+
+        <!-- end of body -->
+
+
+
+
+    <!-- footer -->
+    <div class="footer" >
+        <div class="container">
+            <div class="box me-5 " >
+                <h3>AI Prediction</h3>
+                <ul class="social">
+                    <li>
+                        <a href="#" class="facebook">
+                            <!-- <i class="fab fa-facebook-f"></i> -->
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="twitter">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </li>
+                </ul>
+                <p class="text">
+                    Your local AI Services in Saudi Arabia.
+                    We Are Pleased href Provide A Nation-Wide Variety Of AI Services.
+                </p>
+            </div>
+
+            <div class="box ms-5">
+                <div class="line">
+                    <i class="fas fa-map-marker-alt fa-fw"></i>
+                    <div class="info">SA, Gadda, Inside The Sphinx, Room Number 220</div>
+                </div>
+                <div class="line">
+                    <i class="fa-solid fa-clock"></i>
+                    <div class="info">Business Hours: From 10:00 To 18:00</div>
+                </div>
+                <div class="line">
+                    <i class="fas fa-phone-volume fa-fw"></i>
+                    <div class="info">
+                        <span>+20123456789</span>
+                        <span>+20198765432</span>
+                    </div>
+                </div>
+            </div>
+            <div class="box p-5 ">
+                <img src="{{url_for('static' , filename='images/logo.jpeg')}}" alt="Navbar Logo" class="mylogo border rounded " />
+             
+
+
+            </div>
+        </div>
+        <p class="copyright">Made With &lt;3 By AI Team</p>
+    </div>
+
+
+
+    <!-- jquery and custom js -->
+    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
+</body>
+</html>

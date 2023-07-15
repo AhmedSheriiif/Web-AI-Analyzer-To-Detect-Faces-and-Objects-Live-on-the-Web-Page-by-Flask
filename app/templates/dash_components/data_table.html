@@ -1,0 +1,129 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pop.css') }}">
+
+<div class="nk-block-head">
+    <div class="nk-block-head-content">
+        <h4 class="nk-block-title">Events Table</h4>
+        <div class="nk-block-des">
+            <p></p>
+        </div>
+    </div>
+</div>
+<div class="card card-bordered card-preview">
+    <div class="card-inner">
+
+        <div class="datatable-wrap my-3">
+            <div id="DataTables_Table_3_wrapper"
+                 class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+                <div class="datatable-wrap my-3">
+
+                    <table class="datatable-init-export nowrap table dataTable no-footer dtr-inline"
+                           data-export-title="Export" id="DataTables_Table_3"
+                           aria-describedby="DataTables_Table_3_info">
+                        <thead>
+                        <tr>
+                            <th class="sorting sorting_asc" tabindex="0"
+                                aria-controls="DataTables_Table_3" rowspan="1"
+                                colspan="1" aria-label=" Name : activate to sort column descending">
+                                ID
+                            </th>
+
+                            <th class="sorting" tabindex="0"
+                                aria-controls="DataTables_Table_3" rowspan="1"
+                                colspan="1" aria-label=" Position : activate to sort column ascending" style="">
+                                Model
+                            </th>
+
+                            <th class="sorting" tabindex="0"
+                                aria-controls="DataTables_Table_3" rowspan="1"
+                                colspan="1" aria-label=" Office : activate to sort column ascending" style="">
+                                Source
+                            </th>
+
+                            <th class="sorting" tabindex="0"
+                                aria-controls="DataTables_Table_3" rowspan="1"
+                                colspan="1" aria-label="Age: activate to sort column ascending" style="">
+                                Source Name
+                            </th>
+
+                            <th class="sorting" tabindex="0"
+                                aria-controls="DataTables_Table_3" rowspan="1"
+                                colspan="1" aria-label=" Start date: activate to sort column ascending"
+                                aria-sort="ascending">
+                                Messages
+                            </th>
+
+                            <th class="sorting" tabindex="0"
+                                aria-controls="DataTables_Table_3" rowspan="1"
+                                colspan="1" aria-label=" Start date: activate to sort column ascending"
+                                aria-sort="ascending">
+                                Date
+                            </th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for data in table_data %}
+
+                            <tr class="odd pop_tr" onclick="SnapShot('{{ data.Link }}', '{{ data.Model }}')">
+                                <td class="dtr-control sorting_1" tabindex="0">{{ data.ID }}</td>
+                                <td style="">{{ data.Model }}</td>
+                                <td style="">{{ data.Source }}</td>
+                                <td style="">{{ data.Source_Name }}</td>
+                                <td style="">{{ data.Messages }}</td>
+                                <td style="">{{ data.Date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                            </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-7 col-sm-12 col-md-9">
+                <div class="dataTables_paginate paging_simple_numbers"
+                     id="DataTables_Table_3_paginate">
+
+                </div>
+            </div>
+            <div class="col-5 col-sm-12 col-md-3 text-start text-md-end">
+
+            </div>
+        </div>
+
+        <!-- POP WINDOW -->
+        <div id="popdiv">
+            <div id="popcontent">
+
+                <i id="close" onclick="hidediv()" class="fa-sharp fa-solid fa-circle-xmark"></i>
+                <img id="popimg" src="../../static/images/emodet1.jpg" alt="event_page">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+    <script src="{{ url_for('static', filename='js/pop.js') }}"></script>
+
+
+<script>
+    SnapShot = function(link, model) {
+        var pop = document.getElementById('popdiv');
+        pop.style.display = "block";
+        var popimg = document.getElementById('popimg');
+
+        if (model == "Object Detection") {
+            popimg.src = "/static/user_data/predicts_object_detection/" + link;
+        } else if (model == "Emotion Detection") {
+            popimg.src = "/static/user_data/predicts_emotion_detection/" + link;
+        }
+    }
+
+</script>
+
+
+

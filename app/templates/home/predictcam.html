@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %} AI ANALYSIS | Predict Cameras {% endblock %}
+
+{% block start %}
+    <div class='p-3 mt-3'>
+        <h3 style="color:rgb(46, 3, 46);" class='my-3 d-flex justify-content-center'>{{ model }} - Your
+            Prediction</h3>
+
+        <div class='row my-2 p-2'>
+            {% for Cam in CamLinks %}
+                <div class="col-5 ms-3 me-1 p-1">
+                    <img src="{{ url_for('camera_feed', id=loop.index0) }}" alt="camera"
+                         width="320" height="240">
+
+
+                    <div class="row ">
+                        <a class="col-2" target="_blank"
+                           href={{ url_for('home.camera_events',id = Cam.id) }}>
+                            <button class='p-2 mx-3 my-3 btn btn-primary'>Events</button>
+                        </a>
+                        <form id="myform"
+                              class="form-validate is-alter panel-page-form ms-2 col-4"
+                              action={{ url_for('home.del_cam',id = Cam.id) }} method="DELETE"
+                              autocomplete="off">
+                            <input type="submit" value="Delete"
+                                   class="p-2 mx-3 my-3 btn btn-primary"/>
+                        </form>
+                    </div>
+                </div>
+
+
+                <div class="col-6 ms-2 p-1 d-flex align-items-center">
+                    <table class="table table-bordered mb-5">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <td>{{ Cam.id }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">IP</th>
+                            <td>{{ Cam.link }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <td>{{ Cam.name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Location</th>
+                            <td>{{ Cam.location }}</td>
+                        </tr>
+
+
+                        </thead>
+
+                    </table>
+
+                </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+    <div class='mb-3 d-flex justify-content-center'>
+
+        <a href="{{ url_for('home.home_page') }}">
+            <button class='p-2 btn btn-primary '>Back To Home</button>
+        </a>
+
+
+    </div>
+
+    <script src="{{ url_for('static', filename='assets/js/bundle.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/libs/datatable-btns.js') }}"></script>
+{% endblock %}

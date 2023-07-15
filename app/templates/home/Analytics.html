@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %} AI ANALYSIS | CHOOSE YOUR MODEL {% endblock %}
+
+{% block start %}
+
+    <div class="d-flex justify-content-center">
+        <i class="fa-solid fa-clipboard-check  p-2 icon1 fs-2"></i>
+    </div>
+
+
+    <div class="row p-4 ms-2">
+        <div class="col-6 p-3 ms-2">
+            <h3> Model & Input Source</h3><br><br><br>
+
+            <form class="form-validate is-alter panel-page-form" action="{{ url_for('home.analytic_page') }}"
+                  method="POST" autocomplete="off" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+                <!-- SELECT MODEL -->
+                <h5> Select AI Model</h5>
+                <div class="form-group mb-5">
+                    <div class="form-control-wrap">
+                        <select class="form-select js-select2 select2-hidden-accessible" data-select2-id="3"
+                                tabindex="-1" aria-hidden="true" name="model">
+                            <option value="object_detection" data-select2-id="5">Object Detection</option>
+                            <option value="emotion_detection" data-select2-id="23">Emotion Detection</option>
+
+                        </select>
+                    </div>
+                </div>
+
+
+                <h5 class="mb-2">
+                    Select Input Source
+                </h5>
+                <div class="row gy-4">
+
+                    <div class="col-md-3 col-sm-6">
+                        <div class="preview-block">
+                            <span class="preview-title overline-title">Image</span>
+                            <div class="custom-control custom-radio checked">
+                                <input type="radio" id="image" name="source" class="custom-control-input" value="image">
+                                <label class="custom-control-label" for="image"><b>Image</b></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6">
+                        <div class="preview-block">
+                            <span class="preview-title overline-title">Video</span>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="video" name="source" checked=""
+                                       class="custom-control-input" value="video">
+                                <label class="custom-control-label" for="video"><b>Video</b></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6">
+                        <div class="preview-block">
+                            <span class="preview-title overline-title">Camera</span>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="camera" name="source" checked=""
+                                       class="custom-control-input" value="camera">
+                                <label class="custom-control-label" for="camera"><b>Camera</b></label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="button mt-5 p-2 ">
+                        <input class="btn btn-primary" id="mysubmit1" type="submit" value="Start">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
+    </div>
+
+    <script src="{{ url_for('static', filename='assets/js/bundle.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/handleSubmit3.js') }}"></script>
+{% endblock %}
+
+

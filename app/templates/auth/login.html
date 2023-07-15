@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zxx" class="js">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Softnio">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+          content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
+    <!-- Fav Icon  -->
+    <title>Login | AI ANALYSIS</title>
+
+    <link rel="stylesheet" href="{{ url_for('static' , filename='assets/css/dashlite.css') }}">
+    <link id="skin-default" rel="stylesheet" href="{{ url_for('static' , filename='assets/css/theme.css') }}">
+    <script src="https://kit.fontawesome.com/a1aef19155.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashlite.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyle.css') }}">
+
+
+</head>
+
+<body class="nk-body bg-white npc-default pg-auth">
+<div class="nk-app-root">
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- wrap @s -->
+        <div class="nk-wrap nk-wrap-nosidebar">
+            <!-- content @s -->
+            <div class="nk-content ">
+                <div class="nk-split nk-split-page nk-split-md">
+                    <div class="nk-split-content nk-block-area nk-block-area-column nk-auth-container bg-white">
+                        <div class="absolute-top-right d-lg-none p-3 p-sm-5">
+                            <a href="#" class="toggle btn-white btn btn-icon btn-light" data-target="athPromo"><em
+                                    class="icon ni ni-info"></em></a>
+                        </div>
+                        <div class="nk-block nk-block-middle nk-auth-body">
+
+
+                            <h5 class="card-title">Customer Login</h5>
+
+                            <form action="{{ url_for('auth.login') }}" method="POST" id="myform">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+                                    <!-- EMAIL -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="email">Email address</label>
+                                        <div class="form-control-wrap">
+                                            <input type="email" class="form-control" name="email">
+                                        </div>
+                                    </div>
+
+                                    <!-- PASSWORD -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="password">Password</label>
+                                        <div class="form-control-wrap">
+                                            <input type="password" class="form-control" id="password1" name="password1">
+                                        </div>
+                                        <p class="lead">{{ login_problem }}</p>
+                                    </div>
+
+
+                                    <!-- SUBMIT BUTTON -->
+                                    <div class="button form-group btn  btn-primary btn-block ">
+                                        <input class="btn btn-primary btn-block " type="submit" value="Login"
+                                               id="submitbtn">
+                                    </div>
+                                </form>
+                                <div class="form-note-s2 pt-4"> New on our platform? <a
+                                        href="{{ url_for('auth.register') }}">Create an account</a>
+                                </div>
+
+
+                        </div>
+
+                    </div><!-- .nk-split-content -->
+                    <div class="nk-split-content nk-split-stretch bg-lighter d-flex toggle-break-lg toggle-slide toggle-slide-right"
+                         data-toggle-body="true" data-content="athPromo" data-toggle-screen="lg"
+                         data-toggle-overlay="true">
+                        <div class="slider-wrap w-100 w-max-550px p-3 p-sm-5 m-auto">
+                            <div class="slider-init" data-slick='{"dots":true, "arrows":false}'>
+                                <div class="slider-item">
+                                    <div class="nk-feature nk-feature-center">
+                                        <div class="nk-feature-img">
+
+                                            <img class="round"
+                                                 src="{{ url_for('static' , filename='images/login.jpg') }}" alt="iot">
+                                        </div>
+                                        <div class="nk-feature-content py-4 p-sm-5">
+                                            <h4>AI Predict</h4>
+                                            <p>We being the prominent name in the market of AI solution developers helps
+                                                businesses improve their efficiency and propel towards betterment.</p>
+                                        </div>
+                                    </div>
+                                </div><!-- .slider-item -->
+
+                                <div class="slider-dots"></div>
+                                <div class="slider-arrows"></div>
+                            </div><!-- .slider-wrap -->
+                        </div><!-- .nk-split-content -->
+                    </div><!-- .nk-split -->
+                </div>
+                <!-- wrap @e -->
+            </div>
+            <!-- content @e -->
+        </div>
+        <!-- main @e -->
+    </div>
+</div>
+</body>
+
+<!-- JavaScript -->
+
+<script src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+
+</html>

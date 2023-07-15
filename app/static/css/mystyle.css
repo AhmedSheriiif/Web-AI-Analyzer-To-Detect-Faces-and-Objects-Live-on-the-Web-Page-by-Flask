@@ -1,0 +1,28 @@
+#file{
+    border-radius: 10px;
+    margin-left: 21rem;
+    width: 34%;
+}
+
+#email , #pass1{
+    border-radius: 20px;
+    /* width: 30%; */
+
+
+
+}
+
+.addcamlabel1{
+    font-size: large;
+    display: block;
+    font-weight: bold;
+}
+
+.addcaminput{
+    border-radius: 10px;
+    width: 34%;
+    /* margin-left: 21rem; */
+
+
+
+}

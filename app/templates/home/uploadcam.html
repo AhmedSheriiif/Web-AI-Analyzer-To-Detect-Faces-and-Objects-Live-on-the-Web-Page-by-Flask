@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %} AI ANALYSIS | Add Camera {% endblock %}
+
+{% block start %}
+
+    <div class='p-5 my-2'>
+        <div>
+
+            <h3 class="mb-5 ">
+                {{ model }}
+            </h3>
+
+            <h5 class="card-title">Add Camera</h5>
+            <form action="{{ url_for('home.upload_link') }}" method="POST" id="myform">
+
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+
+                <!-- Stream URL -->
+                <div class="form-group">
+                    <label class="form-label" for="stream_url">Stream URL *</label>
+                    <div class="form-control-wrap">
+                        <input type="text" class="form-control" id="stream_url" name="stream_url" aria-label="Fullname"
+                               aria-describedby="basic-addon1" required
+                               placeholder="rstp://<username><password>@<ip>:<port>/<path>">
+                    </div>
+                </div>
+
+                <!-- LOCATION -->
+                <div class="form-group">
+                    <label class="form-label" for="location">Location</label>
+                    <div class="form-control-wrap">
+                        <input type="text" class="form-control" id="location" name="location" aria-label="Fullname"
+                               aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+                <!-- Camera Name -->
+                <div class="form-group">
+                    <label class="form-label" for="fullname">Camera Name</label>
+                    <div class="form-control-wrap">
+                        <input type="text" class="form-control" id="camera_name" name="camera_name"
+                               aria-label="Fullname"
+                               aria-describedby="basic-addon1">
+                    </div>
+                </div>
+
+                <h6 class="d-flex justify-content-center my-3" style="color: green;">{{ uploaded }}</h6>
+
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-lg btn-primary" id="submitbtn">Add Camera</button>
+                </div>
+            </form>
+
+                <div class="mt-5">
+                    <a href="{{ url_for('home.predict_link') }}">
+                        <button class='btn btn-lg btn-primary'>Predict</button>
+                    </a>
+                </div>
+        </div>
+    </div>
+
+
+
+    <script src="{{ url_for('static', filename='assets/js/bundle.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/libs/datatable-btns.js') }}"></script>
+{% endblock %}

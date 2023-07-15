@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% block title %} AI ANALYSIS | Camera Events {% endblock %}
+
+{% block start %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pop.css') }}">
+
+    <div class="nk-content-body">
+        <div class='row my-2 p-2'>
+            <h3 style="color:rgb(46, 3, 46);" class='my-3 d-flex justify-content-center'>Camera Events</h3>
+
+            <div class="datatable-wrap my-3">
+                <div id="DataTables_Table_3_wrapper"
+                     class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+                    <div class="datatable-wrap my-3">
+
+                        <table class="datatable-init-export nowrap table dataTable no-footer dtr-inline"
+                               data-export-title="Export" id="DataTables_Table_3"
+                               aria-describedby="DataTables_Table_3_info">
+                            <thead>
+                            <tr>
+                                <th class="sorting sorting_asc" tabindex="0"
+                                    aria-controls="DataTables_Table_3" rowspan="1"
+                                    colspan="1" aria-label=" Name : activate to sort column descending">
+                                    ID
+                                </th>
+
+                                <th class="sorting" tabindex="0"
+                                    aria-controls="DataTables_Table_3" rowspan="1"
+                                    colspan="1" aria-label=" Position : activate to sort column ascending" style="">
+                                    Model
+                                </th>
+
+                                <th class="sorting" tabindex="0"
+                                    aria-controls="DataTables_Table_3" rowspan="1"
+                                    colspan="1" aria-label=" Office : activate to sort column ascending" style="">
+                                    Source
+                                </th>
+
+                                <th class="sorting" tabindex="0"
+                                    aria-controls="DataTables_Table_3" rowspan="1"
+                                    colspan="1" aria-label="Age: activate to sort column ascending" style="">
+                                    Source Name
+                                </th>
+
+                                <th class="sorting" tabindex="0"
+                                    aria-controls="DataTables_Table_3" rowspan="1"
+                                    colspan="1" aria-label=" Start date: activate to sort column ascending"
+                                    aria-sort="ascending">
+                                    Messages
+                                </th>
+
+                                <th class="sorting" tabindex="0"
+                                    aria-controls="DataTables_Table_3" rowspan="1"
+                                    colspan="1" aria-label=" Start date: activate to sort column ascending"
+                                    aria-sort="ascending">
+                                    Date
+                                </th>
+
+                                <th class="sorting" tabindex="0"
+                                    aria-controls="DataTables_Table_3" rowspan="1"
+                                    colspan="1" aria-label=" Start date: activate to sort column ascending"
+                                    aria-sort="ascending">
+                                    Link
+                                </th>
+
+                            </tr>
+                            </thead>
+
+                            <!-- BODY OF TABLE -->
+                            <tbody id="tbody">
+
+                            </tbody>
+
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-7 col-sm-12 col-md-9">
+                    <div class="dataTables_paginate paging_simple_numbers"
+                         id="DataTables_Table_3_paginate">
+
+                    </div>
+                </div>
+                <div class="col-5 col-sm-12 col-md-3 text-start text-md-end">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- POP WINDOW -->
+    <div id="popdiv">
+        <div id="popcontent">
+
+            <i id="close" onclick="hidediv()" class="fa-sharp fa-solid fa-circle-xmark"></i>
+            <img id="popimg" src="../../static/images/emodet1.jpg" alt="event_page">
+
+        </div>
+
+    </div>
+    <!-- end of pop window -->
+
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='assets/js/bundle.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/libs/datatable-btns.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/pop.js') }}"></script>
+
+    <script>
+        var popdiv = document.getElementById("popdiv")
+        var popimg = document.getElementById("popimg")
+        var eventInterval;
+        var link = window.location.href
+        var myid = parseInt(link.substring(link.lastIndexOf('/') + 1));
+        var camera_id = "{{ camera_id }}";
+
+
+        eventInterval = setInterval(function () {
+                // GET MESSAGES
+                $.ajax({
+                    url: "/get_camera_events//" + camera_id,
+                    success: function (data) {
+
+                        // Data Found
+                        if (data.error == "data") {
+
+                            // Getting Table
+                            let MyTable = document.getElementById("DataTables_Table_3")
+
+                            // Getting Body of Table
+                            let MyBody = document.getElementById("tbody")
+                            MyBody.innerHTML = ""
+
+                            // Resolving Data
+                            let event_ids = data.IDS;
+                            let event_models = data.MODELS;
+                            let event_sources = data.SOURCES;
+                            let event_source_names = data.SOURCE_NAMES;
+                            let event_messages = data.MESSAGES;
+                            let event_links = data.LINKS;
+                            let event_dates = data.DATES;
+
+                            // Adding to the Table
+                            for (var i = 0; i < event_ids.length; i++) {
+                                var NewTR = document.createElement("tr");
+
+
+                                var Model_TD = document.createElement("td");
+                                var Source_TD = document.createElement("td");
+                                var SourceName_TD = document.createElement("td");
+                                var Message_TD = document.createElement("td");
+                                var Link_TD = document.createElement("td");
+                                var Date_TD = document.createElement("td");
+
+
+                                Message_TD.innerHTML = event_messages[i];
+                                Model_TD.innerHTML = event_models[i];
+                                Source_TD.innerHTML = event_sources[i];
+                                SourceName_TD.innerHTML = event_source_names[i];
+                                Link_TD.innerHTML = event_links[i];
+                                Date_TD.innerHTML = event_dates[i];
+
+                                let ID_TD = document.createElement("td")
+                                ID_TD.innerHTML = i + 1
+
+
+                                NewTR.appendChild(ID_TD);
+                                NewTR.appendChild(Model_TD);
+                                NewTR.appendChild(Source_TD);
+                                NewTR.appendChild(SourceName_TD);
+                                NewTR.appendChild(Message_TD);
+                                NewTR.appendChild(Date_TD);
+                                NewTR.appendChild(Link_TD);
+
+                                NewTR.style.cursor = "pointer"
+
+                                let link = event_links[i];
+
+                                if (event_models[i] == "Object Detection") {
+                                    NewTR.addEventListener("click", function () {
+                                        popdiv.style.display = "block";
+                                        popimg.src = "/static/user_data/predicts_object_detection/" + link;
+
+                                    })
+                                } else if (event_models[i] == "Emotion Detection") {
+
+                                    NewTR.addEventListener("click", function () {
+                                        popdiv.style.display = "block";
+                                        popimg.src = "/static/user_data/predicts_emotion_detection/" + link;
+
+                                    })
+                                }
+
+                                MyBody.appendChild(NewTR);
+                            }
+
+                        }
+                    }
+                })
+            },
+            800
+        )
+
+    </script>
+
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}  Add Camera {% endblock %}
+
+{% block start %}
+<div>
+    <h3 class="mb-5 ">
+        Add a Camera.
+    </h3>
+    <div class="row p-3">
+        <div class="col-6  mt-5">
+
+            <form class="form-validate is-alter panel-page-form"
+                  action="{{ url_for('home.add_camera') }}" method="POST"
+                  autocomplete="off" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <label class="addcamlabel1" for="file">
+                    IP :
+                </label>
+                <input name="ip" id="file" type="url" placeholder="enter your Link"
+                       class="px-3 py-1 w-75 ms-1">
+                <h6 class="mt-4 mb-3" style="color: green;">*optional</h6>
+                <div class="mb-2">
+                    <label class="addcamlabel1" for="type">
+                        Type :
+                    </label>
+                    <input type="text" name="type" placeholder="enter camera type"
+                           id="type" class="px-3 py-1 ms-1 w-75  addcaminput">
+                </div>
+                <div class=" mb-2">
+                    <label class="addcamlabel1" for="location">
+                        location :
+                    </label>
+                    <input type="text" name="location"
+                           placeholder="enter camera location" id="location"
+                           class="px-3 py-1 ms-1 w-75 addcaminput">
+                </div>
+                <div class=" mb-2">
+                    <label class="addcamlabel1" for="username">
+                        username :
+                    </label>
+                    <input type="text" name="username" placeholder="enter username"
+                           id="username" class="px-3 py-1 ms-1 w-75 addcaminput">
+                </div>
+                <div class=" mb-2">
+                    <label class="addcamlabel1" for="password">
+                        location :
+                    </label>
+                    <input type="password" name="password" placeholder="enter  password"
+                           id="password" class="px-3 py-1 ms-1 w-75 addcaminput">
+
+                </div>
+                <h6 class="d-flex justify-content-center my-3"
+                    style="color: green;">{{ uploaded }}</h6>
+
+
+                <div class="button ">
+                    <input class="btn btn-primary ms-2 my-2" disabled id="mysubmit1"
+                           type="submit" value="submit">
+                </div>
+            </form>
+        </div>
+        <div class="col-6 mt-5">
+            <img class="rounded mt-5"
+                 src="{{ url_for('user_data' , filename='images/livecam.jpg') }}"
+                 alt="myimage" height="400" width="300"/>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+

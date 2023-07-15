@@ -1,0 +1,30 @@
+
+
+#mymaindiv{
+    background :
+    url(../images/background4.jpg);
+    height: 40rem;
+   color: darkred;
+   font-weight: 700;
+   padding-top: 6rem;
+   background-size: cover;
+  
+}
+
+#mymaindiv p{font-size: 26px;
+    width: 30rem;
+    flex-wrap: wrap;
+
+
+}
+
+#maindiv button{
+    padding: 0.5rem 1.5rem;
+}
+.center1{
+    text-align: start;
+}
+
+#maindiv h1{
+    color: rgb(28, 89, 204);
+}

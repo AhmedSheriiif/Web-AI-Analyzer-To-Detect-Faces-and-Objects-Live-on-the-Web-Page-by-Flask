@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %} AI ANALYSIS | Upload Image {% endblock %}
+
+{% block start %}
+
+    <div class='px-5 py-2 my-2'>
+        <div>
+            <h3 class="mb-2 ">
+                {{ model }}
+            </h3>
+            <div class="row p-3">
+                <div class="col-6  mt-5">
+                    <h5 class="mb-4">
+                        Select Your Image
+                    </h5>
+
+                    <!-- UPLOADING AND PREDICTING IMAGE -->
+                    <form class="form-validate is-alter panel-page-form" action="{{ url_for('home.upload_image') }}"
+                          method="POST" autocomplete="off" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+                        <!-- test -->
+                        <div class="input-group mb-3">
+                            <input name="image" id="file" type="file" class="form-control ms-1 "
+                                   placeholder="upload your Image">
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-success" id="basic-addon2">Browse</span>
+                            </div>
+                        </div>
+
+                        <!-- test -->
+                        <h6 id="errorfile" style="display: none;"></h6>
+                        <h6 class="d-flex justify-content-center my-3" style="color: green;">{{ uploaded }}</h6>
+                        <div class="button ">
+                            <input class="btn btn-primary ms-4" id="mysubmit1" type="submit" value="Predict">
+                        </div>
+
+
+                    </form>
+
+
+                </div>
+
+            </div>
+            <!-- prediction -->
+            {% if prediction == 1 %}
+                <div class='p-5 mt-3'>
+                    <h3 style="color:rgb(46, 3, 46);" class='my-3 d-flex justify-content-center'>Your Prediction</h3>
+
+                    <div class='row my-2 p-2'>
+                        <div class='col-7'>
+                            <img class="rounded" src="{{ url_for('get_predict', filename = filename) }}" alt="myimage"
+                                 height="400" width="520"/>
+
+                        </div>
+                        <div class='col-4 p-5 fs-5 fw-bold' style="background-color: white;">
+                            <h4>Predictions</h4>
+                            <ul class='p-1'>
+                                {% for detect in detections %}
+                                    <li class='p-1'>{{ detect }}</li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+
+                    </div>
+                </div>
+            {% endif %}
+            <!--end of prediction -->
+
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='assets/js/bundle.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/handleSubmit3.js') }}"></script>
+{% endblock %}
+
+
+
+

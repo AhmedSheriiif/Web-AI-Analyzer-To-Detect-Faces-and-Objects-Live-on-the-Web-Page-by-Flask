@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %} AI ANALYSIS | Events {% endblock %}
+
+{% block start %}
+
+    <div class="nk-block">
+        {% include "dash_components/data_table.html" %}
+    </div>
+
+    <script src="{{ url_for('static', filename='assets/js/bundle.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/handleSubmit3.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/libs/datatable-btns.js') }}"></script>
+
+{% endblock %}
